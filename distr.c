@@ -51,15 +51,22 @@ void process_file(const char *filename, int length_counts[], int distributions[M
 // Print results
 void print_results(const char *cdr_name, int length_counts[], int distributions[MAX_LENGTH + 1][MAX_LENGTH][AMINO_ACIDS]) {
     printf("Results for %s:\n", cdr_name);
+    long long total_records = 0;
+    for (int len = 1; len <= MAX_LENGTH; len++) {
+        total_records += length_counts[len];
+    }
+    printf("Total records: %lld\n", total_records);
+
     for (int len = 1; len <= MAX_LENGTH; len++) {
         if (length_counts[len] == 0) continue;
-        printf("Length %d: %d records\n", len, length_counts[len]);
+        printf("Length %d: %d (%.4%%) records\n", len, length_counts[len], 
+            100.0*length_counts[len]/ total_records);
         for (int pos = 0; pos < len; pos++) {
             printf("  Position %d: ", pos + 1);
             for (int aa = 0; aa < AMINO_ACIDS; aa++) {
                 int count = distributions[len][pos][aa];
                 if (count > 0) {
-                    printf("%c(%.2%%) ", amino_acid_list[aa], 100.0*count/length_counts[len]);
+                    printf("%c(%.4%%) ", amino_acid_list[aa], 100.0*count/length_counts[len]);
                 }
             }
             printf("\n");
