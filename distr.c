@@ -77,7 +77,7 @@ void print_results(const char *cdr_name, int length_counts[], int distributions[
 
 int main(int argc, char *argv[]) {
     //const char *files[3] = {"cdr1.txt", "cdr2.txt", "cdr3.txt"};
-    if (argc < 2 || argc > 5) {
+    if (argc < 2 || argc > 6) {
         fprintf(stderr, "Usage: %s <cdr1.txt> <cdr2.txt> <cdr3.txt> [<cdr4.txt> <cdr5.txt>]\n", argv[0]);
         return EXIT_FAILURE;
     }
